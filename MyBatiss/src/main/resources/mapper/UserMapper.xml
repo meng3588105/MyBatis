@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace务必和接口的全类名一样 -->
+<mapper namespace="com.mmm.dao.UserDao">
+    <!-- id务必和接口中的方法名称对应
+        如果参数是一个对象，那么sql语句中#{对象的属性名}就可以获取值
+        在核心中${}获取
+        因为在核心文件中配置了别名，所以这块的类名不用写完整限定名
+        如果没有在核心文件中配置别名，必须是完整限定名，除了java.lang包下的
+     -->
+    <insert id="addStudent" parameterType="User">
+--       数据库关键字是name  name要加上`name`   不然增加不了
+      insert into User(age,`name`) values(#{age},#{name})
+    </insert>
+
+    <!--
+        新增操作 会获取我们插入数据的id
+        SELECT @@identity
+        SELECT LAST_INSERT_ID()   查询刚拆入数据的主键
+    -->
+    <insert id="addID" parameterType="User">
+        INSERT INTO USER (age,`name`) VALUES (#{age},#{name})
+        /**
+        order="AFTER"  适用于mysql数据库
+        order="BEFORE"  适用于oracle数据库
+        */
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT @@IDENTITY
+        </selectKey>
+    </insert>
+    <!--删除操作-->
+    <delete id="deleteUser" parameterType="int">
+        /*xx是占位符*/
+        DELETE FROM user WHERE id=#{xx}
+    </delete>
+
+    <!--修改操作   传递的是一个user对象-->
+    <update id="updateUser" parameterType="User">
+        UPDATE USER SET name =#{name },age=#{age}
+        WHERE id=#{id}
+    </update>
+
+    <!--查询所有-->
+    <select id="UserALL" resultType="User">
+
+        SELECT * FROM user
+    </select>
+
+    <!--查询所有用map-->
+    <select id="userAllMap" resultMap="UserMap">
+        SELECT * from user
+    </select>
+    <!--
+        数据库字段名和我们实体类属性名不一致  必须使用
+        返回结果是map集合时  必须使用
+        关键映射  以及延迟加载  必须使用
+    -->
+    <resultMap id="UserMap" type="User">
+        <!-- property 是我们自己定义的实体类名  column 是数据库列名  这样就可以映射过去  -->
+        <id property="id" column="id"/> <!--只针对主键的设置-->
+        <result property="age" column="age"/> <!--设置除了主键，集合，对象之外的属性-->
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <!--根据指定id查询-->
+    <select id="UserById" parameterType="int" resultType="User">
+        select * FROM user WHERE id=#{xxx}
+    </select>
+
+    <!--根据学生name模糊查询-->
+    <!--
+        SELECT * FROM user WHERE `name` like '%' #{value} '%'
+    -->
+    <select id="userByname" resultType="User">
+        SELECT * FROM user WHERE `name` LIKE  concat('%',#{xxx},'%')
+    </select>
+
+</mapper>
