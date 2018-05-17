@@ -48,22 +48,32 @@
         SELECT * FROM user
     </select>
 
-    <!--查询所有用map-->
+<!--    &lt;!&ndash;查询所有用map&ndash;&gt;
     <select id="userAllMap" resultMap="UserMap">
         SELECT * from user
     </select>
-    <!--
+    &lt;!&ndash;
         数据库字段名和我们实体类属性名不一致  必须使用
         返回结果是map集合时  必须使用
         关键映射  以及延迟加载  必须使用
-    -->
+    &ndash;&gt;
     <resultMap id="UserMap" type="User">
-        <!-- property 是我们自己定义的实体类名  column 是数据库列名  这样就可以映射过去  -->
-        <id property="id" column="id"/> <!--只针对主键的设置-->
-        <result property="age" column="age"/> <!--设置除了主键，集合，对象之外的属性-->
+        &lt;!&ndash; property 是我们自己定义的实体类名  column 是数据库列名  这样就可以映射过去  &ndash;&gt;
+        <id property="id" column="id"/> &lt;!&ndash;只针对主键的设置&ndash;&gt;
+        <result property="age" column="age"/> &lt;!&ndash;设置除了主键，集合，对象之外的属性&ndash;&gt;
         <result property="name" column="name"/>
-    </resultMap>
+    </resultMap>-->
 
+    <!--
+    使用别名的方式
+    `names``ages`数据库的名字
+    name age实体类的名字
+    -->
+    <select id="userAllMap" resultType="User">
+        SELECT `ids` as id,`names`as name,`ages` as age FROM user
+    </select>
+    
+    
     <!--根据指定id查询-->
     <select id="UserById" parameterType="int" resultType="User">
         select * FROM user WHERE id=#{xxx}

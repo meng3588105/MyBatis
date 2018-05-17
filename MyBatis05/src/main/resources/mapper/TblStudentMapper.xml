@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace务必和接口的全类名一样 -->
-<mapper namespace="com.mmm.dao.UserDao">
+<mapper namespace="com.mmm.dao.UserDao"><!--必须是对应的dao接口的全类名-->
     <!-- id务必和接口中的方法名称对应
         如果参数是一个对象，那么sql语句中#{对象的属性名}就可以获取值
         在核心中${}获取
@@ -87,5 +87,33 @@
     <select id="userByname" resultType="User">
         SELECT * FROM user WHERE `name` LIKE  concat('%',#{xxx},'%')
     </select>
+
+    <!-- 用map进行多表条件的查询-->
+
+    <select id="userByMap" resultType="User">
+
+
+       SELECT a.name,a.id,a.age FROM user a,nuser b,Muser c
+       WHERE a.Nid=b.Nid AND a.`Mid`=c.Mid
+       AND a.name=#{name}
+       AND a.age=#{age}
+
+
+    </select>
+
+    <select id="userByMap2" resultType="User">
+       SELECT a.name,a.id,a.age FROM user a,nuser b,Muser c
+       WHERE a.Nid=b.Nid AND a.`Mid`=c.Mid
+       AND a.name=#{0}
+       AND b.Nname=#{1}
+       AND c.Mname=#{2}
+
+    </select>
+
+
+
+
+
+
 
 </mapper>
