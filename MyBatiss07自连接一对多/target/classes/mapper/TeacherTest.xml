@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace务必和接口的全类名一样 -->
+<mapper namespace="com.mmm.dao.TeacherDao"><!--必须是对应的dao接口的全类名-->
+    <!-- id务必和接口中的方法名称对应
+        如果参数是一个对象，那么sql语句中#{对象的属性名}就可以获取值
+        在核心中${}获取
+        因为在核心文件中配置了别名，所以这块的类名不用写完整限定名
+        如果没有在核心文件中配置别名，必须是完整限定名，除了java.lang包下的
+     -->
+
+    <!--需求：根据导师的编号查询出所有的老师信息
+        比如说：现在查询导师编号为1的所有老师信息
+        
+        步骤
+            01.select * from teacher where tid =1
+                这时候会有 3  4 两条信息
+            02.把这两条信息的id 当成tid再次查询
+            03.tid为3 的又一名老师 5 
+            04.结果应该是 3  4 5 三名老师
+            05.不断的把查询结果id当成 tid 再次查询，知道没有值结束查询
+    -->
+    <!-- 01.根据导师的编号查询导师信息  我们是根据tid查询的 tid是导师编号
+        然后我们再把查询结果id单程tid再次查询
+        -->
+    <select id="selectTeachersByTid" resultMap="teacherMap">
+        SELECT * FROM teacher WHERE  tid=#{xxx}
+
+    </select>
+    
+    <resultMap id="teacherMap" type="Teacher">
+        <id property="id" column="id"/>
+        <result property="name" column="tname"/>
+        <!--导师对应的老师集合  把查询结果id当成tid再次查询-->
+        <collection property="teachers" ofType="Teacher" select="selectTeachersByTid" column="id"/>
+        
+    </resultMap>
+    <!--01.根据老师的编号查询自身信息
+        如果这个老师是导师  name再把id当成tid 再次查询下面的老师信息
+    -->
+    <select id="selectTeachersByTId" resultMap="teacherIdMap">
+        SELECT * FROM teacher WHERE id=#{xxx}
+    </select>
+    
+    <resultMap id="teacherIdMap" type="Teacher">
+        <id property="id" column="id"/>
+        <result property="name" column="tname"/>
+        <!-- 如果这个老师是导师 ，那么再把id当成tid再次查询下面的老师信息 -->
+        <collection property="teachers" ofType="Teacher" select="selectTeachersByTid" column="id"/>
+    </resultMap>
+
+</mapper>

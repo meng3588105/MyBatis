@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace务必和接口的全类名一样 -->
+<mapper namespace="com.mmm.dao.TeacherDao"><!--必须是对应的dao接口的全类名-->
+    <!-- id务必和接口中的方法名称对应
+        如果参数是一个对象，那么sql语句中#{对象的属性名}就可以获取值
+        在核心中${}获取
+        因为在核心文件中配置了别名，所以这块的类名不用写完整限定名
+        如果没有在核心文件中配置别名，必须是完整限定名，除了java.lang包下的
+     -->
+
+
+    <!--
+        根据老师的编号 查询 所有导师的信息
+        递归查询
+        为什么需要查询tid 
+        之前是一对多 是吧id当成tid再次查询
+        现在是多对一  是吧tid当成id再次查询
+        所以必须知道tid的值
+    
+    -->
+    
+    <select id="selectTeachersById" resultMap="teacherMap">
+        SELECT * FROM teacher WHERE  id=#{xxx}
+        
+    </select>
+    
+    <resultMap id="teacherMap" type="Teacher">
+
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <!--设置域属性-->
+        <association property="teacher" javaType="Teacher" select="selectTeachersById" column="tid"/>
+
+    </resultMap>
+    
+</mapper>

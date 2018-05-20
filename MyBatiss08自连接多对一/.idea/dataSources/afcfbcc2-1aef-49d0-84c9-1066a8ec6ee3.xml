@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="ceshi@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.4">
+    <root id="1"/>
+    <schema id="2" parent="1" name="ceshi">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="asss"/>
+    <schema id="4" parent="1" name="daobese"/>
+    <schema id="5" parent="1" name="easybuy"/>
+    <schema id="6" parent="1" name="goodone"/>
+    <schema id="7" parent="1" name="index001"/>
+    <schema id="8" parent="1" name="information_schema"/>
+    <schema id="9" parent="1" name="jdbc"/>
+    <schema id="10" parent="1" name="kaoshi"/>
+    <schema id="11" parent="1" name="lianxi"/>
+    <schema id="12" parent="1" name="library"/>
+    <schema id="13" parent="1" name="mybank"/>
+    <schema id="14" parent="1" name="mybase"/>
+    <schema id="15" parent="1" name="mybatis"/>
+    <schema id="16" parent="1" name="mysql"/>
+    <schema id="17" parent="1" name="newsmanagersystem"/>
+    <schema id="18" parent="1" name="performance_schema"/>
+    <schema id="19" parent="1" name="qianduan"/>
+    <schema id="20" parent="1" name="test"/>
+    <schema id="21" parent="1" name="mybatis02"/>
+    <table id="22" parent="2" name="tblcourse"/>
+    <table id="23" parent="2" name="tblscore"/>
+    <table id="24" parent="2" name="tblstudent"/>
+    <table id="25" parent="2" name="tblteacher"/>
+    <view id="26" parent="2" name="v_shitu">
+      <Comment>VIEW</Comment>
+    </view>
+    <column id="27" parent="22" name="CourseId">
+      <Position>1</Position>
+      <Comment>课程编号</Comment>
+      <DataType>varchar(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="22" name="CourseName">
+      <Position>2</Position>
+      <Comment>课程名称</Comment>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="29" parent="22" name="TeaId">
+      <Position>3</Position>
+      <Comment>授课教师编号</Comment>
+      <DataType>varchar(3)|0</DataType>
+    </column>
+    <key id="30" parent="22" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>CourseId</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="31" parent="23" name="StuId">
+      <Position>1</Position>
+      <Comment>学号</Comment>
+      <DataType>varchar(5)|0</DataType>
+    </column>
+    <column id="32" parent="23" name="CourseId">
+      <Position>2</Position>
+      <Comment>课程编号</Comment>
+      <DataType>varchar(3)|0</DataType>
+    </column>
+    <column id="33" parent="23" name="Score">
+      <Position>3</Position>
+      <Comment>成绩</Comment>
+      <DataType>float|0</DataType>
+    </column>
+    <column id="34" parent="24" name="StuId">
+      <Position>1</Position>
+      <Comment>学号</Comment>
+      <DataType>varchar(5)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="35" parent="24" name="StuName">
+      <Position>2</Position>
+      <Comment>学生姓名</Comment>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="36" parent="24" name="StuAge">
+      <Position>3</Position>
+      <Comment>学生年龄</Comment>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="37" parent="24" name="StuSex">
+      <Position>4</Position>
+      <Comment>学生性别</Comment>
+      <DataType>char(1)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="38" parent="24" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>StuId</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="39" parent="25" name="TeaId">
+      <Position>1</Position>
+      <Comment>教师编号</Comment>
+      <DataType>varchar(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="40" parent="25" name="TeaName">
+      <Position>2</Position>
+      <Comment>教师名称</Comment>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="41" parent="25" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>TeaId</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="42" parent="26" name="学号">
+      <Position>1</Position>
+      <Comment>学号</Comment>
+      <DataType>varchar(5)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="43" parent="26" name="姓名">
+      <Position>2</Position>
+      <Comment>学生姓名</Comment>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="44" parent="26" name="教师编号">
+      <Position>3</Position>
+      <Comment>教师编号</Comment>
+      <DataType>varchar(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="45" parent="26" name="教师姓名">
+      <Position>4</Position>
+      <Comment>教师名称</Comment>
+      <DataType>varchar(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="46" parent="26" name="课程编号">
+      <Position>5</Position>
+      <Comment>课程编号</Comment>
+      <DataType>varchar(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="47" parent="26" name="课程名称">
+      <Position>6</Position>
+      <Comment>课程名称</Comment>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="48" parent="26" name="成绩">
+      <Position>7</Position>
+      <Comment>成绩</Comment>
+      <DataType>float|0</DataType>
+    </column>
+  </database-model>
+</dataSource>

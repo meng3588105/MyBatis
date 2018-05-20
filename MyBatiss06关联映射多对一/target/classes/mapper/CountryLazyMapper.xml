@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace务必和接口的全类名一样 -->
+<mapper namespace="com.mmm.dao.CountryDao"><!--必须是对应的dao接口的全类名-->
+    <!-- id务必和接口中的方法名称对应
+        如果参数是一个对象，那么sql语句中#{对象的属性名}就可以获取值
+        在核心中${}获取
+        因为在核心文件中配置了别名，所以这块的类名不用写完整限定名
+        如果没有在核心文件中配置别名，必须是完整限定名，除了java.lang包下的
+     -->
+
+   <!--
+        01.根据省会的id查询出 省会的信息
+   -->
+    <select id="selectProvincialById" resultMap="provincialMap">
+        SELECT * FROM  provincial WHERE pid=#{xxx}
+
+    </select>
+    
+    <!-- 02.根据省会的id 查询出 对应的国家的信息
+        xxx 就是resultmao中传递来的  countryid
+    -->
+    <select id="selectCountryById" resultType="Country">
+        SELECT * FROM country WHERE  cid=#{xxx}
+
+    </select>
+    
+    <!--对应的countryMap 这种方式不推荐使用 因为无法使用延迟加载-->
+    
+    <resultMap id="provincialMap" type="Provincial">
+        <id property="pId" column="pid"/>
+        <result property="pName" column="pname"/>
+        <!--Provincial 有一个属性的类型是 Country 域属性
+        javaType ：与属性对应的类型
+        -->
+        <association property="country" javaType="Country" select="selectCountryById" column="countRyid"/>
+
+    </resultMap>
+    
+    
+    
+    
+    
+    
+</mapper>
