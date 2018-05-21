@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace务必和接口的全类名一样 -->
+<mapper namespace="com.mmm.dao.UserDao"><!--必须是对应的dao接口的全类名-->
+    <!-- id务必和接口中的方法名称对应
+        如果参数是一个对象，那么sql语句中#{对象的属性名}就可以获取值
+        在核心中${}获取
+        因为在核心文件中配置了别名，所以这块的类名不用写完整限定名
+        如果没有在核心文件中配置别名，必须是完整限定名，除了java.lang包下的
+     -->
+
+    <!--根据id查询指定的老师信息-->
+    <select id="userById" resultType="User">
+        SELECT * FROM USER  WHERE id=#{xxx}
+        
+    </select>
+    <!--根据id查询指定的老师信息2-->
+    
+    <select id="userById2" resultType="User">
+        SELECT * FROM USER WHERE id=#{xxx}
+        
+    </select>
+    
+    <!--新增user-->
+    <insert id="insertUser" parameterType="User">
+        INSERT INTO USER (id,age,`name`) VALUES (#{id},#{age},#{name})
+
+    </insert>
+
+
+</mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace务必和接口的全类名一样 -->
+<mapper namespace="com.mmm.dao.TeacherDao"><!--必须是对应的dao接口的全类名-->
+    <!-- id务必和接口中的方法名称对应
+        如果参数是一个对象，那么sql语句中#{对象的属性名}就可以获取值
+        在核心中${}获取
+        因为在核心文件中配置了别名，所以这块的类名不用写完整限定名
+        如果没有在核心文件中配置别名，必须是完整限定名，除了java.lang包下的
+     -->
+
+    <!--根据学生的编号  查询出对应的所有老师信息-->
+    <select id="selectTeachersBySid" resultMap="studentMap">
+
+        SELECT s.sid,sname,t.tid,t.name FROM student s,teacher t,middle m
+          WHERE s.sid=m.sid AND  t.tid=m.tid AND s.sid=#{xxx}
+
+    </select>
+    
+    <resultMap id="studentMap" type="Student">
+        <id property="sid" column="sid"/>
+        <result property="sname" column="sname"/>
+        
+        <!--一个学生可以有多个老师-->
+        
+        <collection property="teachers" ofType="Teacher">
+            <id property="tid" column="tid"/>
+            <result property="tName" column="tname"/>
+        </collection>
+        
+    </resultMap>
+
+    <!--根据老师的编号  查询出对应的所有学生信息-->
+    <select id="selectStudentsByTid" resultMap="teacherMap">
+        SELECT * FROM student s,teacher t,middle m
+        WHERE s.sid=m.sid AND t.tid=#{xxx}
+    </select>
+    
+    <resultMap id="teacherMap" type="Teacher">
+        
+        <id property="tid" column="tid"/>
+        <result property="tName" column="tname"/>
+        <!--一个学生可以有多个老师-->
+        
+        <collection property="students" ofType="Student">
+            <id property="sid" column="sid"/>
+            <result property="sname" column="sname"/>
+
+        </collection>
+        
+    </resultMap>
+</mapper>
